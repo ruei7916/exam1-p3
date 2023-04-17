@@ -67,8 +67,8 @@ SC_MODULE(Adder)
       if(adr==BASE_TARGET_INPUT_ADDR){
         //Copy 4 bytes from ptr
         for (unsigned int i = 0; i < len; i++) i_data[i] = ptr[i];
-        a=(ptr[2],ptr[1],ptr[0]);
-        buffer[1]=a;
+        a=* reinterpret_cast<sc_ufixed_fast<20,1>*>(ptr);
+        
         //Compute summation with lower two uint8_t integers
         //sum=i_data[0]+i_data[1];
         delay=sc_time(10, SC_NS); //Accumulate delay for quantum keeper

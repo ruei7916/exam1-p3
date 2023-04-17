@@ -60,7 +60,7 @@ SC_MODULE(Initiator)
     // TLM-2 generic payload transaction, reused across calls to b_transport
     tlm::tlm_generic_payload* trans = new tlm::tlm_generic_payload;
     sc_time delay = sc_time(10, SC_NS);
-
+    cout<<sizeof(sc_ufixed_fast<20,1>);
     // Generate two transaction of write and read
     for (int i = 0; i < 128; i++)
     {
@@ -69,20 +69,12 @@ SC_MODULE(Initiator)
       tlm::tlm_command cmd = tlm::TLM_WRITE_COMMAND; 
       //prepare 4 bytes (uint8_t)
       sc_ufixed_fast<20,1> a = x_input_signal[i];
-      sc_uint<8> b;
-      b=a.range(7,0);
-      data[0] = b;
-      b=a.range(15,8);
-      data[1] = b;
-      b=a.range(20,16);
-      data[2] = b;
-      data[3] = 0;
-
+      
       // Prepare payload
       trans->set_command( cmd );
       trans->set_address( BASE_TARGET_INPUT_ADDR ); //P2P TLM write to target's address 0
-      trans->set_data_ptr( reinterpret_cast<unsigned char*>(&data) );
-      trans->set_data_length( 4 );
+      trans->set_data_ptr( reinterpret_cast<unsigned char*>(&a) );
+      trans->set_data_length( 48 );
       trans->set_streaming_width( 4 ); // = data_length to indicate no streaming
       trans->set_byte_enable_ptr( 0 ); // 0 indicates unused
       trans->set_dmi_allowed( false ); // Mandatory initial value
