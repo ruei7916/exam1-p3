@@ -1,0 +1,3 @@
+/home/user/midterm/exam1-p3/build/CMakeFiles/adder-qk.dir
+/home/user/midterm/exam1-p3/build/CMakeFiles/edit_cache.dir
+/home/user/midterm/exam1-p3/build/CMakeFiles/rebuild_cache.dir
